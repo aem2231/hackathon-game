@@ -1,33 +1,53 @@
-import pygame
-
 import pygame 
+import random 
   
-# Define the background colour 
-# using RGB color coding. 
-background_colour = (1,0,0) 
+# GLOBAL VARIABLES 
+COLOR = (255, 100, 98) 
+SURFACE_COLOR = (167, 255, 100) 
+WIDTH = 500
+HEIGHT = 500
   
-# Define the dimensions of 
-# screen object(width,height) 
-screen = pygame.display.set_mode((300, 300)) 
+# Object class 
+class Sprite(pygame.sprite.Sprite): 
+    def __init__(self, color, height, width): 
+        super().__init__() 
   
-# Set the caption of the screen 
-pygame.display.set_caption('PyGame') 
+        self.image = pygame.Surface([width, height]) 
+        self.image.fill(SURFACE_COLOR) 
+        self.image.set_colorkey(COLOR) 
   
-# Fill the background colour to the screen 
-screen.fill(background_colour) 
+        pygame.draw.rect(self.image,color,pygame.Rect(0, 0, width, height)) 
   
-# Update the display using flip 
-pygame.display.flip() 
+        self.rect = self.image.get_rect() 
+
+pygame.init() 
   
-# Variable to keep our game loop running 
-running = True
+RED = (255, 0, 0) 
   
-# game loop 
-while running: 
-    
-# for loop through the event queue   
+size = (WIDTH, HEIGHT) 
+screen = pygame.display.set_mode(size) 
+pygame.display.set_caption("Creating Sprite") 
+  
+all_sprites_list = pygame.sprite.Group() 
+  
+object_ = Sprite(RED, 20, 30) 
+object_.rect.x = 200
+object_.rect.y = 300
+  
+all_sprites_list.add(object_) 
+  
+exit = True
+clock = pygame.time.Clock() 
+  
+while exit: 
     for event in pygame.event.get(): 
-      
-        # Check for QUIT event       
         if event.type == pygame.QUIT: 
-            running = False
+            exit = False
+  
+    all_sprites_list.update() 
+    screen.fill(SURFACE_COLOR) 
+    all_sprites_list.draw(screen) 
+    pygame.display.flip() 
+    clock.tick(60) 
+  
+pygame.quit() 
