@@ -5,7 +5,7 @@ from config import HEIGHT, GROUND_HEIGHT, GRAVITY, JUMP_STRENGTH
 from typing import Set
 
 class Sprite(pygame.sprite.Sprite):
-    def __init__(self, platforms_group, spikes_group):
+    def __init__(self, platforms_group, spikes_group, level_ends_group):
         super().__init__()
         self.image = pygame.image.load("./assets/img/sprite.png").convert_alpha()
         self.rect = self.image.get_rect()
@@ -17,6 +17,7 @@ class Sprite(pygame.sprite.Sprite):
         self.on_ground = False
         self.platforms = platforms_group
         self.spikes = spikes_group
+        self.level_ends = level_ends_group
         self.reset()
 
     def moveRight(self, pixels):
@@ -52,6 +53,7 @@ class Sprite(pygame.sprite.Sprite):
             self.on_ground = False
 
     def update(self):
+        level_end = 0
         self.vel_y += GRAVITY
         self.rect.y += self.vel_y
         self.check_platform_collisions()
@@ -59,6 +61,13 @@ class Sprite(pygame.sprite.Sprite):
             self.play_death_sound()
             time.sleep(0.3)
             self.reset()
+
+        if self.check_level_end() and level_end < 1:
+            self.play_end_sound()
+            time.sleep(5)
+            self.reset
+            level_end = 0
+
         if self.rect.y >= HEIGHT - GROUND_HEIGHT - self.rect.height:
             self.rect.y = HEIGHT - GROUND_HEIGHT - self.rect.height
             self.vel_y = 0
@@ -69,6 +78,13 @@ class Sprite(pygame.sprite.Sprite):
             if self.rect.colliderect(spike.rect):
                 return True
         return False
+
+    def check_level_end(self):
+        for end in self.level_ends:
+            if self.rect.colliderect(end.rect):
+                return True
+        return False
+
 
     def reset(self):
         self.rect.x = 200
@@ -84,5 +100,11 @@ class Sprite(pygame.sprite.Sprite):
     def play_jump_sound(self):
         mixer.init()
         mixer.music.load("assets/audio/jump.mp3")
+        mixer.music.set_volume(0.7)
+        mixer.music.play()
+
+    def play_end_sound(self):
+        mixer.init()
+        mixer.music.load("assets/audio/end.mp3")
         mixer.music.set_volume(0.7)
         mixer.music.play()

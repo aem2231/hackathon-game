@@ -1,7 +1,7 @@
 import pygame
 import random
 from player import Sprite
-from game_objects import Platform, Ground, Spike
+from game_objects import LevelEnd, Platform, Ground, Spike, LevelEnd
 from config import HEIGHT, WIDTH, GROUND_HEIGHT, SPRINT_SPEED, NORMAL_SPEED
 
 pygame.init()
@@ -14,6 +14,7 @@ background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
 platforms = pygame.sprite.Group()
 spikes = pygame.sprite.Group()
+level_ends = pygame.sprite.Group()
 
 ground = Ground(0, WIDTH * 2)
 platforms.add(ground)
@@ -21,16 +22,15 @@ platforms.add(ground)
 x = 200
 y = 200
 
-for i in range(3):
-    platform = Platform(x, HEIGHT - GROUND_HEIGHT - y, 200)
-    platforms.add(platform)
-    x+=500 + random.randint(0, 100)
-    y+=100 + random.randint(0, 100)
-
 for i in range(4):
     platform = Platform(x, HEIGHT - GROUND_HEIGHT - y, 200)
     platforms.add(platform)
-    x-=500 - random.randint(0, 100)
+
+    if i == 3:
+        level_end = LevelEnd(x+70, HEIGHT - GROUND_HEIGHT - y - 100)
+        level_ends.add(level_end)
+
+    x+=500 + random.randint(0, 100)
     y+=100 + random.randint(0, 100)
 
 x=30
@@ -39,7 +39,7 @@ for i in range(100):
     spikes.add(spike)
     x += (150 - random.randint(5,20))
 
-playerCar = Sprite(platforms, spikes)
+playerCar = Sprite(platforms, spikes, level_ends)
 all_sprites_list = pygame.sprite.Group()
 all_sprites_list.add(playerCar)
 
@@ -73,6 +73,7 @@ while running:
     screen.blit(background, (0, 0))
     platforms.draw(screen)
     spikes.draw(screen)
+    level_ends.draw(screen)
     all_sprites_list.draw(screen)
 
     pygame.display.flip()
