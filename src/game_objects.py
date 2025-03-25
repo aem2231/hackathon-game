@@ -38,7 +38,7 @@ class Spike(pygame.sprite.Sprite):
         """
 
         super().__init__()
-        self.image = pygame.image.load("./assets/img/spike.png").convert_alpha()
+        self.image = pygame.image.load("./assets/img/spikes.png").convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y

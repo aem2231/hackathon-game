@@ -1,7 +1,7 @@
 import pygame
 import random
 from player import Sprite
-from game_objects import LevelEnd, Platform, Ground, Spike, LevelEnd
+from game_objects import LevelEnd, Platform, Ground, Spike
 from config import HEIGHT, WIDTH, GROUND_HEIGHT, SPRINT_SPEED, NORMAL_SPEED
 
 pygame.init()
@@ -33,11 +33,11 @@ for i in range(4):
     x+=500 + random.randint(0, 100)
     y+=100 + random.randint(0, 100)
 
-x=30
+x=0
 for i in range(100):
     spike = Spike(x, HEIGHT - GROUND_HEIGHT - 120)
     spikes.add(spike)
-    x += (150 - random.randint(5,20))
+    x += (300 - random.randint(5,20))
 
 playerCar = Sprite(platforms, spikes, level_ends)
 all_sprites_list = pygame.sprite.Group()
