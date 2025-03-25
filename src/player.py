@@ -1,5 +1,5 @@
 import pygame
-from config import *
+from config import WIDTH, HEIGHT, GROUND_HEIGHT, GRAVITY, JUMP_STRENGTH
 
 class Sprite(pygame.sprite.Sprite):
     def __init__(self, platforms_group):

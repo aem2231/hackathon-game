@@ -1,5 +1,5 @@
 import pygame
-from config import *
+from config import HEIGHT, GROUND_HEIGHT, PLATFORM_COLOR, GROUND_COLOR
 
 class Ground(pygame.sprite.Sprite):
     def __init__(self, x, width):

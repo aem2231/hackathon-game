@@ -1,7 +1,7 @@
 import pygame
 from player import Sprite
 from game_objects import Platform, Ground
-from config import *
+from config import HEIGHT, WIDTH, GROUND_HEIGHT, SPRINT_SPEED, NORMAL_SPEED
 
 pygame.init()
 
