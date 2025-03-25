@@ -6,14 +6,11 @@ from config import HEIGHT, WIDTH, GROUND_HEIGHT, SPRINT_SPEED, NORMAL_SPEED
 
 pygame.init()
 
-INFO = pygame.display.Info()
-SCREEN_WIDTH, SCREEN_HEIGHT = INFO.current_w, INFO.current_h
-
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.FULLSCREEN)
+screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
 pygame.display.set_caption("Side-Scrolling Platformer")
 
 background = pygame.image.load("./assets/img/background.png").convert()
-background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
 platforms = pygame.sprite.Group()
 spikes = pygame.sprite.Group()
@@ -24,7 +21,7 @@ platforms.add(ground)
 x = 200
 y = 200
 
-for i in range(4):
+for i in range(3):
     platform = Platform(x, HEIGHT - GROUND_HEIGHT - y, 200)
     platforms.add(platform)
     x+=500 + random.randint(0, 100)
