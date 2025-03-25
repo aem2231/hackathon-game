@@ -30,7 +30,7 @@ for i in range(3):
 for i in range(4):
     platform = Platform(x, HEIGHT - GROUND_HEIGHT - y, 200)
     platforms.add(platform)
-    x-=500 - random.randint(100, 200)
+    x-=500 - random.randint(0, 100)
     y+=100 + random.randint(0, 100)
 
 x=30

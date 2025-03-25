@@ -17,8 +17,8 @@ class Platform(pygame.sprite.Sprite):
         Creates a platform at a specific position (x, y) with a given width.
 
         Parameters:
-        x (int): The x-coordinate of the platform's position.
-        y (int): The y-coordinate of the platform's position.
+            x (int): The x-coordinate of the platform's position.
+            y (int): The y-coordinate of the platform's position.
         width (int): The width of the platform.
         """
         super().__init__()
@@ -30,6 +30,13 @@ class Platform(pygame.sprite.Sprite):
 
 class Spike(pygame.sprite.Sprite):
     def __init__(self, x, y):
+        """Creates a spike at a specific position.
+
+        Paramaters:
+            x (int): The x-coordinates of the spikes position.
+            y (int): The y-coordinates of the spikes position.
+        """
+
         super().__init__()
         self.image = pygame.image.load("./assets/img/spike.png").convert_alpha()
         self.rect = self.image.get_rect()

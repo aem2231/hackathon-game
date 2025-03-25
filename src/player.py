@@ -28,16 +28,26 @@ class Sprite(pygame.sprite.Sprite):
     def jump(self):
         if self.on_ground:
             self.play_jump_sound()
+
             self.vel_y -= JUMP_STRENGTH
             self.on_ground = False
 
     def check_platform_collisions(self):
         for platform in self.platforms:
-            if self.rect.colliderect(platform.rect) and self.vel_y > 0:
-                self.rect.bottom = platform.rect.top
-                self.vel_y = 0
-                self.on_ground = True
-                break
+            if self.rect.colliderect(platform.rect):
+                if self.vel_y > 0 and self.rect.bottom - self.vel_y <= platform.rect.top + 10:
+                    self.rect.bottom = platform.rect.top
+                    self.vel_y = 0
+                    self.on_ground = True
+                    break
+                elif self.vel_y < 0 and self.rect.top < platform.rect.bottom:
+                    self.rect.top = platform.rect.bottom
+                    self.vel_y = 0
+                elif self.rect.right > platform.rect.left and self.rect.left < platform.rect.right:
+                    if self.rect.centerx < platform.rect.centerx:
+                        self.rect.right = platform.rect.left
+                    else:
+                        self.rect.left = platform.rect.right
         else:
             self.on_ground = False
 
