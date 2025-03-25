@@ -23,6 +23,16 @@ class Sprite(pygame.sprite.Sprite):
             self.vel_y -= JUMP_STRENGTH
             self.on_ground = False
 
+    def check_platform_collisions(self):
+        for platform in self.platforms:
+            if self.rect.colliderect(platform.rect) and self.vel_y > 0:
+                self.rect.bottom = platform.rect.top
+                self.vel_y = 0
+                self.on_ground = True
+                break
+        else:
+            self.on_ground = False
+
     def update(self):
         self.vel_y += GRAVITY
         self.rect.y += self.vel_y
@@ -31,12 +41,3 @@ class Sprite(pygame.sprite.Sprite):
             self.rect.y = HEIGHT - GROUND_HEIGHT - self.rect.height
             self.vel_y = 0
             self.on_ground = True
-
-    def check_platform_collisions(self):
-        self.on_ground = False
-        for platform in self.platforms:
-            if self.rect.colliderect(platform.rect) and self.vel_y >= 0:
-                if self.rect.bottom <= platform.rect.top + 10:
-                    self.rect.bottom = platform.rect.top
-                    self.vel_y = 0
-                    self.on_ground = True

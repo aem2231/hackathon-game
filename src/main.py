@@ -19,6 +19,9 @@ platforms.add(ground)
 platform = Platform(300, HEIGHT - GROUND_HEIGHT - 200, 200)
 platforms.add(platform)
 
+platform = Platform(800, HEIGHT - GROUND_HEIGHT - 300, 200)
+platforms.add(platform)
+
 
 playerCar = Sprite(platforms)
 all_sprites_list = pygame.sprite.Group()
@@ -35,7 +38,7 @@ while running:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_x:
                 running = False
-            if event.key == pygame.K_SPACE:
+            if event.key == pygame.K_SPACE or event.key == pygame.K_UP:
                 playerCar.jump()
 
     keys = pygame.key.get_pressed()
