@@ -1,80 +1,59 @@
-import random
 import pygame
- 
-# Global Variables
-COLOR = (255, 100, 98)
-SURFACE_COLOR = (167, 255, 100)
-WIDTH = 500
-HEIGHT = 500
- 
-# Object class
-class Sprite(pygame.sprite.Sprite):
-    def __init__(self, color, height, width):
-        super().__init__()
- 
-        self.image = pygame.image.load("./assets/PlayerTemp.png")
- 
- 
-        self.rect = self.image.get_rect()
- 
-    def moveRight(self, pixels):
-        self.rect.x += pixels
- 
-    def moveLeft(self, pixels):
-        self.rect.x -= pixels
- 
-    def moveForward(self, speed):
-        self.rect.y += speed * speed/10
- 
-    def moveBack(self, speed):
-        self.rect.y -= speed * speed/10
- 
- 
+from player import Sprite
+from game_objects import Platform, Ground
+from config import *
+
 pygame.init()
- 
- 
-RED = (255, 0, 0)
- 
- 
-size = (WIDTH, HEIGHT)
-screen = pygame.display.set_mode(size)
-pygame.display.set_caption("Creating Sprite")
- 
- 
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
+pygame.display.set_caption("Side-Scrolling Platformer")
+
+background = pygame.image.load("./assets/background.png").convert()
+background = pygame.transform.scale(background, (WIDTH, HEIGHT))
+
+platforms = pygame.sprite.Group()
+
+ground = Ground(0, WIDTH * 2)
+platforms.add(ground)
+
+platform = Platform(300, HEIGHT - GROUND_HEIGHT - 200, 200)
+platforms.add(platform)
+
+
+playerCar = Sprite(platforms)
 all_sprites_list = pygame.sprite.Group()
- 
-playerCar = Sprite(RED, 20, 30)
-playerCar.rect.x = 200
-playerCar.rect.y = 300
- 
- 
 all_sprites_list.add(playerCar)
- 
-exit = True
+
+
+running = True
 clock = pygame.time.Clock()
- 
-while exit:
+
+while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            exit = False
+            running = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_x:
-                exit = False
- 
+                running = False
+            if event.key == pygame.K_SPACE:
+                playerCar.jump()
+
     keys = pygame.key.get_pressed()
+    speed = SPRINT_SPEED if keys[pygame.K_LSHIFT] or keys[pygame.K_RSHIFT] else NORMAL_SPEED
+
     if keys[pygame.K_LEFT]:
-        playerCar.moveLeft(10)
+        playerCar.moveLeft(speed)
     if keys[pygame.K_RIGHT]:
-        playerCar.moveRight(10)
-    if keys[pygame.K_DOWN]:
-        playerCar.moveForward(10)
-    if keys[pygame.K_UP]:
-        playerCar.moveBack(10)
- 
+        playerCar.moveRight(speed)
+
     all_sprites_list.update()
-    screen.fill(SURFACE_COLOR)
+    platforms.update()
+
+    screen.blit(background, (0, 0))
+    platforms.draw(screen)
     all_sprites_list.draw(screen)
+
     pygame.display.flip()
     clock.tick(60)
- 
+
 pygame.quit()
