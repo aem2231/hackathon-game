@@ -1,6 +1,6 @@
 import pygame
 from player import Sprite
-from game_objects import Platform, Ground
+from game_objects import Platform, Ground, Spike
 from config import HEIGHT, WIDTH, GROUND_HEIGHT, SPRINT_SPEED, NORMAL_SPEED
 
 pygame.init()
@@ -12,18 +12,30 @@ background = pygame.image.load("./assets/background.png").convert()
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
 platforms = pygame.sprite.Group()
+spikes = pygame.sprite.Group()
 
 ground = Ground(0, WIDTH * 2)
 platforms.add(ground)
 
-platform = Platform(300, HEIGHT - GROUND_HEIGHT - 200, 200)
-platforms.add(platform)
+x = 200
+y = 200
 
-platform = Platform(800, HEIGHT - GROUND_HEIGHT - 300, 200)
-platforms.add(platform)
+for i in range(7):
+    platform = Platform(x, HEIGHT - GROUND_HEIGHT - y, 200)
+    platforms.add(platform)
+    x+=500
+    y+=100
 
+spike = Spike(30, HEIGHT - GROUND_HEIGHT - 20, 50)
+spikes.add(spike)
 
-playerCar = Sprite(platforms)
+x=30
+for i in range(100):
+    spike = Spike(x, HEIGHT - GROUND_HEIGHT - 20, 50)
+    spikes.add(spike)
+    x += 70
+
+playerCar = Sprite(platforms, spikes)
 all_sprites_list = pygame.sprite.Group()
 all_sprites_list.add(playerCar)
 
@@ -32,6 +44,8 @@ running = True
 clock = pygame.time.Clock()
 
 while running:
+
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -54,6 +68,7 @@ while running:
 
     screen.blit(background, (0, 0))
     platforms.draw(screen)
+    spikes.draw(screen)
     all_sprites_list.draw(screen)
 
     pygame.display.flip()
