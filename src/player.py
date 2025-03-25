@@ -1,11 +1,13 @@
 import pygame
+from pygame import mixer
 import time
 from config import HEIGHT, GROUND_HEIGHT, GRAVITY, JUMP_STRENGTH
+from typing import Set
 
 class Sprite(pygame.sprite.Sprite):
     def __init__(self, platforms_group, spikes_group):
         super().__init__()
-        self.image = pygame.image.load("./assets/sprite.png").convert_alpha()
+        self.image = pygame.image.load("./assets/img/sprite.png").convert_alpha()
         self.rect = self.image.get_rect()
         self.start_x = 200
         self.start_y = HEIGHT - GROUND_HEIGHT - 200 - self.rect.height
@@ -24,6 +26,7 @@ class Sprite(pygame.sprite.Sprite):
         self.rect.x -= pixels
 
     def jump(self):
+        self.play_jump_sound()
         if self.on_ground:
             self.vel_y -= JUMP_STRENGTH
             self.on_ground = False
@@ -43,6 +46,7 @@ class Sprite(pygame.sprite.Sprite):
         self.rect.y += self.vel_y
         self.check_platform_collisions()
         if self.check_spike_collision():
+            self.play_death_sound()
             time.sleep(0.3)
             self.reset()
         if self.rect.y >= HEIGHT - GROUND_HEIGHT - self.rect.height:
@@ -60,3 +64,15 @@ class Sprite(pygame.sprite.Sprite):
         self.rect.x = 200
         self.rect.y = HEIGHT - GROUND_HEIGHT - 200 - self.rect.height
         self.vel_y = 0
+
+    def play_death_sound(self):
+        mixer.init()
+        mixer.music.load("assets/audio/death.mp3")
+        mixer.music.set_volume(0.7)
+        mixer.music.play()
+
+    def play_jump_sound(self):
+        mixer.init()
+        mixer.music.load("assets/audio/jump.mp3")
+        mixer.music.set_volume(0.7)
+        mixer.music.play()

@@ -8,7 +8,7 @@ pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
 pygame.display.set_caption("Side-Scrolling Platformer")
 
-background = pygame.image.load("./assets/background.png").convert()
+background = pygame.image.load("./assets/img/background.png").convert()
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
 platforms = pygame.sprite.Group()
