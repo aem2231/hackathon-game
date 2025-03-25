@@ -43,7 +43,7 @@ class Sprite(pygame.sprite.Sprite):
         self.rect.y += self.vel_y
         self.check_platform_collisions()
         if self.check_spike_collision():
-            time.sleep(0.5)
+            time.sleep(0.3)
             self.reset()
         if self.rect.y >= HEIGHT - GROUND_HEIGHT - self.rect.height:
             self.rect.y = HEIGHT - GROUND_HEIGHT - self.rect.height
