@@ -26,8 +26,8 @@ class Sprite(pygame.sprite.Sprite):
         self.rect.x -= pixels
 
     def jump(self):
-        self.play_jump_sound()
         if self.on_ground:
+            self.play_jump_sound()
             self.vel_y -= JUMP_STRENGTH
             self.on_ground = False
 
