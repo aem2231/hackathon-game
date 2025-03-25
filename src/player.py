@@ -1,13 +1,13 @@
 import pygame
-from config import WIDTH, HEIGHT, GROUND_HEIGHT, GRAVITY, JUMP_STRENGTH
+from config import HEIGHT, GROUND_HEIGHT, GRAVITY, JUMP_STRENGTH, RED, GROUND_COLOR
 
 class Sprite(pygame.sprite.Sprite):
     def __init__(self, platforms_group, spikes_group):
         super().__init__()
         self.image = pygame.image.load("./assets/sprite.png").convert_alpha()
         self.rect = self.image.get_rect()
-        self.rect.x = WIDTH // 4
-        self.rect.y = HEIGHT - GROUND_HEIGHT - self.rect.height
+        self.rect.x = 200
+        self.rect.y = HEIGHT - GROUND_HEIGHT - 200 - self.rect.height
         self.vel_y = 0
         self.on_ground = False
         self.platforms = platforms_group
