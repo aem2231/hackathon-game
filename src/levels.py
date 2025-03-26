@@ -18,6 +18,8 @@ class Level:
 
         if self.level_number == 1:
             self.create_level_one()
+        else:
+            self.create_level_two()
 
     # This function defines a level. It can somewhat serve as a template for other levels
     def create_level_one(self):
@@ -34,7 +36,7 @@ class Level:
 
             if i == 3:
                 level_end = LevelEnd(x + 70, HEIGHT - GROUND_HEIGHT - y - 80)
-                self.level_ends.add(level_end)
+                self.level_ends.add(level_end) # Every level needs to have a level end, otherwise you will be stuck there.
 
             x += 500 + random.randint(0, 100)
             y += 100 + random.randint(0, 100)
@@ -46,6 +48,56 @@ class Level:
             spike = Spike(x,  HEIGHT - GROUND_HEIGHT - y + 20)
             self.spikes.add(spike)
             x+=30
+
+    def create_level_two(self):
+        x, y  = 200, 200
+
+        for i in range(4):
+            platform = Platform(x, HEIGHT - GROUND_HEIGHT - y, 200)
+            self.platforms.add(platform)
+            y += 200
+
+        platform = Platform(x, HEIGHT - GROUND_HEIGHT - y, 800)
+        self.platforms.add(platform)
+
+        for i in range(4):
+            spike = Spike(x+300, HEIGHT - GROUND_HEIGHT - y - 30)
+            self.spikes.add(spike)
+            y+=30
+
+        x, y = 1250, 1000
+        y -= 300
+
+        for i in range(3):
+            platform = Platform(x, HEIGHT - GROUND_HEIGHT - y, 100)
+            self.platforms.add(platform)
+
+            spike = Spike(x-30, HEIGHT - GROUND_HEIGHT - y - 5)
+            self.spikes.add(spike)
+
+            spike = Spike(x+70, HEIGHT - GROUND_HEIGHT - y - 5)
+            self.spikes.add(spike)
+
+            y-=100
+            x+=500
+
+        x = WIDTH - 300
+        y = HEIGHT - 150
+
+        platform = Platform(x, y, 200)
+        self.platforms.add(platform)
+
+        level_end = LevelEnd(x + 70, y - 100)
+        self.level_ends.add(level_end)
+
+        x = 0
+        y = GROUND_HEIGHT
+
+        for i in range(round((WIDTH / 30))):
+            spike = Spike(x,  HEIGHT - GROUND_HEIGHT - y + 20)
+            self.spikes.add(spike)
+            x+=30
+
 
     def draw(self, screen):
         self.platforms.draw(screen)

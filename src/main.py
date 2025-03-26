@@ -2,7 +2,8 @@ import pygame
 from pygame.constants import K_UP
 from levels import Level
 from player import Sprite
-from config import BACKGROUND_COLOR, WIDTH, HEIGHT, NORMAL_SPEED, SPRINT_SPEED
+from config import BACKGROUND_COLOR, WIDTH, HEIGHT, NORMAL_SPEED
+import time
 
 # The entry point for the program
 
@@ -14,7 +15,17 @@ class Game:
         self.clock = pygame.time.Clock()
         self.running = True
 
-        self.current_level = Level(1)
+        self.current_level_number = 1
+        self.current_level = Level(self.current_level_number)
+        self.player = Sprite(
+            self.current_level.platforms,
+            self.current_level.spikes,
+            self.current_level.level_ends
+        )
+
+    def switch_level(self):
+        self.current_level_number += 1
+        self.current_level = Level(self.current_level_number)
         self.player = Sprite(
             self.current_level.platforms,
             self.current_level.spikes,
@@ -28,6 +39,16 @@ class Game:
             # Update
             self.player.update()
             self.current_level.update()
+
+            # Check if level is completed
+            if self.player.check_level_end():
+                self.player.audio.play_end_sound()
+                time.sleep(5)
+                if self.current_level_number < 2: # Temporary, while we have two levels
+                    self.switch_level()
+                else:
+                    self.running = False  # End game when all levels are complete
+                continue
 
             # Draw
             self.screen.fill(BACKGROUND_COLOR)

@@ -68,11 +68,6 @@ class Sprite(pygame.sprite.Sprite):
             time.sleep(0.3)
             self.reset()
 
-        if self.check_level_end():
-            self.audio.play_end_sound()
-            time.sleep(5)
-            self.reset()
-
         if self.rect.y >= HEIGHT - GROUND_HEIGHT - self.rect.height:
             self.rect.y = HEIGHT - GROUND_HEIGHT - self.rect.height
             self.vel_y = 0
