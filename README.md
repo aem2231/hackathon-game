@@ -21,8 +21,8 @@ Run `pip install -r requirements.txt`
 
 ## Controls
 
-Movement: Arrow Keys
+Movement: Arrow Keys or WASD
 
-Jumping: Space or Up Arrow
+Jumping: Space/Up Arrow
 
-Sprinting: Left Shift
+Sprinting: Shift

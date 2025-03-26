@@ -22,7 +22,7 @@ class Sprite(pygame.sprite.Sprite):
         self.audio = Audio()
 
     def move(self, pixels):
-        if pygame.key.get_pressed()[pygame.K_LSHIFT]:
+        if pygame.key.get_pressed()[pygame.K_LSHIFT] or pygame.key.get_pressed()[pygame.K_RSHIFT]:
             self.rect.x += pixels * (SPRINT_SPEED / NORMAL_SPEED)
         else:
             self.rect.x += pixels
