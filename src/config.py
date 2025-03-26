@@ -2,16 +2,23 @@ import pygame
 
 pygame.init()
 
-# consnants
-
+# GROUND
 WIDTH, HEIGHT = pygame.display.Info().current_w, pygame.display.Info().current_h
-SURFACE_COLOR = (167, 255, 100)
 GROUND_HEIGHT = 50
+
+# PLAYER
 GRAVITY = 0.8
 JUMP_STRENGTH = 20
 NORMAL_SPEED = 5
 SPRINT_SPEED = 10
 
+# COLOURS
+SURFACE_COLOR = (167, 255, 100)
 RED = (255, 0, 0)
+BLUE = (166, 243, 255)
+BACKGROUND_COLOR = (1, 44, 61)
 GROUND_COLOR = (100, 100, 100)
 PLATFORM_COLOR = (100, 100, 100)
+
+# AUDIO
+VOLUME = 0.7
