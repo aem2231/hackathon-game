@@ -69,13 +69,13 @@ class Level:
         y -= 300
 
         for i in range(3):
-            platform = Platform(x, HEIGHT - GROUND_HEIGHT - y, 100)
+            platform = Platform(x, HEIGHT - GROUND_HEIGHT - y, 150)
             self.platforms.add(platform)
 
             spike = Spike(x-30, HEIGHT - GROUND_HEIGHT - y - 5)
             self.spikes.add(spike)
 
-            spike = Spike(x+70, HEIGHT - GROUND_HEIGHT - y - 5)
+            spike = Spike(x+120, HEIGHT - GROUND_HEIGHT - y - 5)
             self.spikes.add(spike)
 
             y-=100
