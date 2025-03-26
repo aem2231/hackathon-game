@@ -1,6 +1,5 @@
 import pygame
 import random
-from player import Sprite
 from game_objects import LevelEnd, Platform, Ground, Spike
 from config import HEIGHT, WIDTH, GROUND_HEIGHT
 
@@ -20,9 +19,11 @@ class Level:
         if self.level_number == 1:
             self.create_level_one()
 
+    # This function defines a level. It can somewhat serve as a template for other levels
     def create_level_one(self):
         x = 200
         y = 200
+
         for i in range(4):
             platform = Platform(x, HEIGHT - GROUND_HEIGHT - y, 200)
             self.platforms.add(platform)

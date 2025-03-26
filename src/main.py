@@ -4,6 +4,8 @@ from levels import Level
 from player import Sprite
 from config import BACKGROUND_COLOR, WIDTH, HEIGHT, NORMAL_SPEED, SPRINT_SPEED
 
+# The entry point for the program
+
 class Game:
     def __init__(self):
         pygame.init()
@@ -47,6 +49,7 @@ class Game:
             self.player.move(NORMAL_SPEED)
         if keys[pygame.K_SPACE] or keys[K_UP]:
             self.player.jump()
+
 if __name__ == "__main__":
     game = Game()
     game.run()

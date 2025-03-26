@@ -19,7 +19,6 @@ class Sprite(pygame.sprite.Sprite):
         self.spikes = spikes_group
         self.level_ends = level_ends_group
         self.reset()
-
         self.audio = Audio()
 
     def move(self, pixels):

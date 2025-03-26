@@ -2,6 +2,8 @@ import pygame
 from config import HEIGHT, GROUND_HEIGHT, PLATFORM_COLOR, GROUND_COLOR
 from config import RED
 
+# The classes in the file are game objects, refer to docstrings on how to use them
+
 class Ground(pygame.sprite.Sprite):
     def __init__(self, x, width):
         super().__init__()
