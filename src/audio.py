@@ -1,6 +1,6 @@
 from pathlib import Path
 from pygame import mixer
-from config import VOLUME
+from config import AudioConfig
 
 class Audio():
     def __init__(self):
@@ -11,17 +11,17 @@ class Audio():
     def play_death_sound(self):
         mixer.init()
         mixer.music.load(self.death_sound)
-        mixer.music.set_volume(VOLUME)
+        mixer.music.set_volume(AudioConfig.VOLUME)
         mixer.music.play()
 
     def play_jump_sound(self):
         mixer.init()
         mixer.music.load(self.jump_sound)
-        mixer.music.set_volume(VOLUME)
+        mixer.music.set_volume(AudioConfig.VOLUME)
         mixer.music.play()
 
     def play_end_sound(self):
         mixer.init()
         mixer.music.load(self.end_sound)
-        mixer.music.set_volume(VOLUME)
+        mixer.music.set_volume(AudioConfig.VOLUME)
         mixer.music.play()

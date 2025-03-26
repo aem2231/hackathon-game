@@ -1,17 +1,16 @@
 import pygame
-from config import HEIGHT, GROUND_HEIGHT, PLATFORM_COLOR, GROUND_COLOR
-from config import RED
+from config import Physics, Colours, Display
 
 # The classes in the file are game objects, refer to docstrings on how to use them
 
 class Ground(pygame.sprite.Sprite):
     def __init__(self, x, width):
         super().__init__()
-        self.image = pygame.Surface((width, GROUND_HEIGHT))
-        self.image.fill(GROUND_COLOR)
+        self.image = pygame.Surface((width, Physics.GROUND_HEIGHT))
+        self.image.fill(Colours.SURFACE)
         self.rect = self.image.get_rect()
         self.rect.x = x
-        self.rect.y = HEIGHT - GROUND_HEIGHT
+        self.rect.y = Display.HEIGHT - Physics.GROUND_HEIGHT
 
 class Platform(pygame.sprite.Sprite):
     def __init__(self, x, y, width):
@@ -24,8 +23,8 @@ class Platform(pygame.sprite.Sprite):
         width (int): The width of the platform.
         """
         super().__init__()
-        self.image = pygame.Surface((width, GROUND_HEIGHT // 2))
-        self.image.fill(PLATFORM_COLOR)
+        self.image = pygame.Surface((width, Physics.GROUND_HEIGHT // 2))
+        self.image.fill(Colours.PLATFORM)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -42,7 +41,7 @@ class Spike(pygame.sprite.Sprite):
         super().__init__()
 
         self.image = pygame.Surface((30, 30))
-        self.image.fill(RED)
+        self.image.fill(Colours.RED)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y

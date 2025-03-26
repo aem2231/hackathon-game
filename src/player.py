@@ -1,16 +1,16 @@
 import pygame
 import time
-from config import HEIGHT, GROUND_HEIGHT, GRAVITY, JUMP_STRENGTH, BLUE, NORMAL_SPEED, SPRINT_SPEED
+from config import Physics, Colours, Display, Player
 from audio import Audio
 
 class Sprite(pygame.sprite.Sprite):
     def __init__(self, platforms_group, spikes_group, level_ends_group):
         super().__init__()
-        self.image = pygame.Surface((45, 70))
-        self.image.fill(BLUE)
+        self.image = pygame.Surface((Player.WIDTH, Player.HEIGHT))
+        self.image.fill(Colours.BLUE)
         self.rect = self.image.get_rect()
         self.start_x = 200
-        self.start_y = HEIGHT - GROUND_HEIGHT - 200 - self.rect.height
+        self.start_y = Display.HEIGHT - Physics.GROUND_HEIGHT - 200 - self.rect.height
         self.rect.x = self.start_x
         self.rect.y = self.start_y
         self.vel_y = 0
@@ -23,7 +23,7 @@ class Sprite(pygame.sprite.Sprite):
 
     def move(self, pixels):
         if pygame.key.get_pressed()[pygame.K_LSHIFT] or pygame.key.get_pressed()[pygame.K_RSHIFT]:
-            self.rect.x += pixels * (SPRINT_SPEED / NORMAL_SPEED)
+            self.rect.x += pixels * (Player.SPRINT_SPEED / Player.NORMAL_SPEED)
         else:
             self.rect.x += pixels
 
@@ -37,7 +37,7 @@ class Sprite(pygame.sprite.Sprite):
         if self.on_ground:
             self.audio.play_jump_sound()
 
-            self.vel_y -= JUMP_STRENGTH
+            self.vel_y -= Physics.JUMP_STRENGTH
             self.on_ground = False
 
     def check_platform_collisions(self):
@@ -60,7 +60,7 @@ class Sprite(pygame.sprite.Sprite):
             self.on_ground = False
 
     def update(self):
-        self.vel_y += GRAVITY
+        self.vel_y += Physics.GRAVITY
         self.rect.y += self.vel_y
         self.check_platform_collisions()
         if self.check_spike_collision():
@@ -68,8 +68,8 @@ class Sprite(pygame.sprite.Sprite):
             time.sleep(0.3)
             self.reset()
 
-        if self.rect.y >= HEIGHT - GROUND_HEIGHT - self.rect.height:
-            self.rect.y = HEIGHT - GROUND_HEIGHT - self.rect.height
+        if self.rect.y >= Display.HEIGHT - Physics.GROUND_HEIGHT - self.rect.height:
+            self.rect.y = Display.HEIGHT - Physics.GROUND_HEIGHT - self.rect.height
             self.vel_y = 0
             self.on_ground = True
 
@@ -87,5 +87,5 @@ class Sprite(pygame.sprite.Sprite):
 
     def reset(self):
         self.rect.x = 200
-        self.rect.y = HEIGHT - GROUND_HEIGHT - 200 - self.rect.height
+        self.rect.y = Display.HEIGHT - Physics.GROUND_HEIGHT - 200 - self.rect.height
         self.vel_y = 0
