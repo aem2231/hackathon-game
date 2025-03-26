@@ -7,9 +7,9 @@ class Display:
     HEIGHT = pygame.display.Info().current_h
     BASE_WIDTH = 2560
     BASE_HEIGHT = 1600
-    SCALE__X = WIDTH / BASE_WIDTH
-    SCALE__Y = HEIGHT / BASE_HEIGHT
-    SCALE = min(SCALE__X, SCALE__Y)
+    SCALE_X = WIDTH / BASE_WIDTH
+    SCALE_Y = HEIGHT / BASE_HEIGHT
+    SCALE = min(SCALE_X, SCALE_Y)
     FPS = 60
     CAPTION = "White Monster"
 
