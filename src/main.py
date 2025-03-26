@@ -10,7 +10,7 @@ import time
 class Game:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((Display.WIDTH, Display.HEIGHT))
+        self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
         pygame.display.set_caption("white monster")
         self.clock = pygame.time.Clock()
         self.running = True

@@ -9,7 +9,7 @@ class Ground(pygame.sprite.Sprite):
         self.image = pygame.Surface((width, Physics.GROUND_HEIGHT))
         self.image.fill(Colours.SURFACE)
         self.rect = self.image.get_rect()
-        self.rect.x = x
+        self.rect.x = x * Display.SCALE
         self.rect.y = Display.HEIGHT - Physics.GROUND_HEIGHT
 
 class Platform(pygame.sprite.Sprite):
@@ -23,11 +23,11 @@ class Platform(pygame.sprite.Sprite):
         width (int): The width of the platform.
         """
         super().__init__()
-        self.image = pygame.Surface((width, Physics.GROUND_HEIGHT // 2))
+        self.image = pygame.Surface((width * Display.SCALE, Physics.GROUND_HEIGHT // 2))
         self.image.fill(Colours.PLATFORM)
         self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.rect.x = x * Display.SCALE
+        self.rect.y = y * Display.SCALE
 
 class Spike(pygame.sprite.Sprite):
     def __init__(self, x, y):
@@ -39,12 +39,11 @@ class Spike(pygame.sprite.Sprite):
         """
 
         super().__init__()
-
-        self.image = pygame.Surface((30, 30))
+        self.image = pygame.Surface((30 * Display.SCALE, 30 * Display.SCALE))
         self.image.fill(Colours.RED)
         self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.rect.x = x * Display.SCALE
+        self.rect.y = y * Display.SCALE
 
 
 class LevelEnd(pygame.sprite.Sprite):
