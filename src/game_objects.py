@@ -1,5 +1,5 @@
 import pygame
-from config import Physics, Colours, Display
+from config import Physics, Colours, Display, Scale
 
 # The classes in the file are game objects, refer to docstrings on how to use them
 
@@ -9,8 +9,8 @@ class Ground(pygame.sprite.Sprite):
         self.image = pygame.Surface((width, Physics.GROUND_HEIGHT))
         self.image.fill(Colours.SURFACE)
         self.rect = self.image.get_rect()
-        self.rect.x = x * Display.SCALE
-        self.rect.y = Display.HEIGHT - Physics.GROUND_HEIGHT
+        self.rect.x = x
+        self.rect.y = round(Display.HEIGHT - Physics.GROUND_HEIGHT)
 
 class Platform(pygame.sprite.Sprite):
     def __init__(self, x, y, width):
@@ -26,11 +26,11 @@ class Platform(pygame.sprite.Sprite):
         self.image = pygame.Surface((width * Display.SCALE, Physics.GROUND_HEIGHT // 2))
         self.image.fill(Colours.PLATFORM)
         self.rect = self.image.get_rect()
-        self.rect.x = x * Display.SCALE_X
-        self.rect.y = y * Display.SCALE_Y
+        self.rect.x = x
+        self.rect.y = y
 
 class Spike(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self, x, y, width, height):
         """Creates a spike at a specific position.
 
         Paramaters:
@@ -39,11 +39,11 @@ class Spike(pygame.sprite.Sprite):
         """
 
         super().__init__()
-        self.image = pygame.Surface((30 * Display.SCALE, 30 * Display.SCALE))
+        self.image = pygame.Surface((Scale.scale(width), Scale.scale(height)))
         self.image.fill(Colours.RED)
         self.rect = self.image.get_rect()
-        self.rect.x = x * Display.SCALE_X
-        self.rect.y = y * Display.SCALE_Y
+        self.rect.x = x
+        self.rect.y = y
 
 
 class LevelEnd(pygame.sprite.Sprite):

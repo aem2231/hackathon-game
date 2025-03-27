@@ -2,14 +2,19 @@ import pygame
 
 pygame.init()
 
+class Scale:
+    @staticmethod
+    def scale(n):
+        return (n / Display.BASE_WIDTH) * Display.HEIGHT
+
 class Display:
     WIDTH = pygame.display.Info().current_w
     HEIGHT = pygame.display.Info().current_h
-    BASE_WIDTH = 2560
-    BASE_HEIGHT = 1600
-    SCALE_X = WIDTH / BASE_WIDTH
-    SCALE_Y = HEIGHT / BASE_HEIGHT
-    SCALE = min(SCALE_X, SCALE_Y)
+    BASE_WIDTH = 1920
+    BASE_HEIGHT = 1080
+    SCALE__X = WIDTH / BASE_WIDTH
+    SCALE__Y = HEIGHT / BASE_HEIGHT
+    SCALE = min(SCALE__X, SCALE__Y)
     FPS = 60
     CAPTION = "White Monster"
 
@@ -43,9 +48,13 @@ class Player:
     # Scaled values
     NORMAL_SPEED = BASE_NORMAL_SPEED * Display.SCALE
     SPRINT_SPEED = BASE_SPRINT_SPEED * Display.SCALE
-    WIDTH = BASE_WIDTH * Display.SCALE
-    HEIGHT = BASE_HEIGHT * Display.SCALE
+    WIDTH = Scale.scale(BASE_WIDTH)
+    HEIGHT = Scale.scale(BASE_HEIGHT)
     STARTING_LIVES = 3
 
 class AudioConfig:
     VOLUME = 0.7
+
+class SpikeCfg:
+    DEFAULT_HEIGHT = 50
+    DEFAULT_WIDTH = 50
