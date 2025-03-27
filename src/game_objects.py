@@ -56,6 +56,12 @@ class LevelEnd(pygame.sprite.Sprite):
         """
         super().__init__()
         self.image = pygame.image.load("./assets/img/end.png").convert_alpha()
-        self.rect = self.image.get_rect()
+        self.image_height = self.image.get_height()
+        self.image_width = self.image.get_width()
+        self.scaled_height = Scale.scale(self.image_height)
+        self.scaled_width = Scale.scale(self.image_width)
+        self.image_scale  = (self.scaled_height, self.scaled_width)
+        self.scaled_image = pygame.transform.scale(self.image, self.image_scale)
+        self.rect = self.scaled_image.get_rect()
         self.rect.x = x
         self.rect.y = y
