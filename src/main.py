@@ -1,5 +1,5 @@
 import pygame
-from pygame.constants import K_UP
+from pygame.constants import K_LCTRL, K_UP
 from levels import get_level
 from player import Sprite
 from config import Colours, Display, Player
@@ -161,6 +161,10 @@ class Game:
             self.player.move(Player.NORMAL_SPEED)
         if keys[pygame.K_SPACE] or keys[K_UP]:
             self.player.jump()
+        if keys[pygame.K_RCTRL] or keys[K_LCTRL]:
+            self.player.crouch()
+        else:
+            self.player.uncrouch()
 
 if __name__ == "__main__":
     game = Game()

@@ -6,7 +6,9 @@ from audio import Audio
 class Sprite(pygame.sprite.Sprite):
     def __init__(self, platforms_group, spikes_group, level_ends_group):
         super().__init__()
-        self.image = pygame.Surface((Player.WIDTH, Player.HEIGHT))
+        self.original_height = Player.HEIGHT
+        self.is_crouching = False
+        self.image = pygame.Surface((int(Player.WIDTH), int(Player.HEIGHT)))
         self.image.fill(Colours.BLUE)
         self.rect = self.image.get_rect()
         self.start_x = 200
@@ -39,6 +41,33 @@ class Sprite(pygame.sprite.Sprite):
 
             self.vel_y -= Physics.JUMP_STRENGTH
             self.on_ground = False
+
+    def crouch(self):
+        if not self.is_crouching:
+            bottom = self.rect.bottom
+            left = self.rect.left
+            new_height = round(self.original_height / 1.5, 1)
+
+            self.image = pygame.Surface((int(Player.WIDTH), int(new_height)))
+            self.image.fill(Colours.BLUE)
+
+            self.rect = self.image.get_rect()
+            self.rect.bottom = bottom
+            self.rect.left = left
+            self.is_crouching = True
+
+    def uncrouch(self):
+        if self.is_crouching:
+            bottom = self.rect.bottom
+            left = self.rect.left
+
+            self.image = pygame.Surface((int(Player.WIDTH), int(self.original_height)))
+            self.image.fill(Colours.BLUE)
+
+            self.rect = self.image.get_rect()
+            self.rect.bottom = bottom
+            self.rect.left = left
+            self.is_crouching = False
 
     def check_platform_collisions(self):
         for platform in self.platforms:
