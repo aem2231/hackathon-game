@@ -9,7 +9,7 @@
 
 ## Preface
 
-This guide should teach you everything you need to create a level. You should also take some time to familiarise yourself with and understand the codebase as this will make creating levels much easier.
+This guide should teach you everything you need to know to create a level. You should also take some time to familiarise yourself with and understand the codebase as this will make creating levels much easier.
 
 When creating a level, you should checkout into a new branch called `level-i`, where `i` is the number of the level you are making. Once you have tested your level, merge it into dev. Always pull the latest commit from dev before you merge your level.
 
