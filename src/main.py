@@ -25,6 +25,8 @@ class Game:
         self.game_save = self.load_save()
         self.current_level_number = self.game_save["LEVEL"]
 
+        self.show_title_screen()
+
         if self.current_level_number == 1:
             self.show_tutorial()
         self.current_level = get_level(self.current_level_number)
@@ -85,20 +87,66 @@ class Game:
         except ValueError:
             return False
 
-    def show_tutorial(self):
-        messages = ["Use arrow keys / wasd to move!",
-                    "Use shift to sprint!",
-                    "Use space / up arrow to jump!",
-                    "Collect white monsters!"]
+    def show_title_screen(self):
+        title = "White Monster"
+        displayed = ""
+        x = Display.WIDTH/2
+        y = Display.HEIGHT/2
 
-        for message in messages:
+        for letter in title:
+            displayed += letter
+            self.audio.play_boom_sound()
             self.screen.fill(Colours.BLACK)
-            text = self.font.render(message, True, Colours.WHITE)
-            text_rect = text.get_rect(center=(Display.WIDTH/2, Display.HEIGHT/2))
+            text = self.font.render(displayed, True, Colours.WHITE)
+            text_rect = text.get_rect(center=(x, y))
             self.screen.blit(text, text_rect)
             pygame.display.flip()
+            time.sleep(0.2)
+        time.sleep(0.6)
+
+        self.screen.fill(Colours.BLACK)
+
+        try:
+            title_image_path = Path(Path.cwd() / "assets" / "img" / "title.png")
+            title_image = pygame.image.load(title_image_path)
+            image_rect = title_image.get_rect(center=(x, y+100))
+            self.screen.blit(title_image, image_rect)
             self.audio.play_boom_sound()
-            time.sleep(1.5)
+            pygame.display.flip()
+            time.sleep(2)
+        except:
+            pass
+
+    def show_tutorial(self):
+        self.screen.fill(Colours.BLACK)
+
+
+        controls = [
+            "Use arrow keys / wasd to move!",
+            "Use shift to sprint!",
+            "Use space / up arrow to jump!",
+            "Use ctrl to crouch!"
+        ]
+
+        objectives = [
+            "Don't touch red",
+            "Collect white monsters!"
+        ]
+
+        start_screen = [controls, objectives]
+
+        for messages in start_screen:
+            spacing = Display.HEIGHT / (len(messages) + 1)
+            for i, message in enumerate(messages):
+                text = self.font.render(message, True, Colours.WHITE)
+                text_rect = text.get_rect(center=(Display.WIDTH/2, spacing * (i + 1)))
+                self.screen.blit(text, text_rect)
+
+                pygame.display.flip()
+                self.audio.play_boom_sound()
+                time.sleep(2)
+            self.screen.fill(Colours.BLACK)
+
 
     def show_level_complete(self):
         self.screen.fill(Colours.BLACK)
@@ -161,6 +209,10 @@ class Game:
             self.player.move(Player.NORMAL_SPEED)
         if keys[pygame.K_SPACE] or keys[K_UP]:
             self.player.jump()
+        if keys[pygame.K_RCTRL] or keys[pygame.K_LCTRL]:
+            self.player.crouch()
+        else:
+            self.player.uncrouch()
 
 if __name__ == "__main__":
     game = Game()
