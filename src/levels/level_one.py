@@ -28,7 +28,7 @@ class Level1(BaseLevel):
 
             if i == 3:
                 level_end = LevelEnd(round(platform.rect.centerx),
-                    Display.HEIGHT - Physics.GROUND_HEIGHT - y - (Images.level_end["HEIGHT"] + (Physics.GROUND_HEIGHT // 2)))
+                    platform.rect.top - Scale.scale_y(Images.level_end["HEIGHT"]))
                 self.level_ends.add(level_end)
 
             x += Scale.scale_x(450 + random.randint(0, 50))
