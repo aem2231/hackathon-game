@@ -20,15 +20,15 @@ class Level1(BaseLevel):
             self.platforms.add(platform)
 
             if i != 0 and i != 3:
-                spike = Spike(round(platform.rect.centerx) - (SpikeCfg.DEFAULT_WIDTH / 2),
-                    platform.rect.centery - Scale.scale_y(SpikeCfg.DEFAULT_HEIGHT - Scale.scale_y(4)),
-                            SpikeCfg.DEFAULT_WIDTH,
-                            SpikeCfg.DEFAULT_HEIGHT)
+                spike = Spike(round(platform.rect.centerx) - Scale.scale_x((SpikeCfg.DEFAULT_WIDTH / 2)),
+                    platform.rect.centery - Scale.scale_y(SpikeCfg.DEFAULT_HEIGHT),
+                            Scale.scale_x(SpikeCfg.DEFAULT_WIDTH),
+                            Scale.scale_y(SpikeCfg.DEFAULT_HEIGHT))
                 self.spikes.add(spike)
 
             if i == 3:
-                level_end = LevelEnd(x + Scale.scale_x(Images.level_end["WIDTH"]),
-                    Display.HEIGHT - Physics.GROUND_HEIGHT - y - (Scale.scale_y(Images.level_end["HEIGHT"]) + (Physics.GROUND_HEIGHT // 2)))
+                level_end = LevelEnd(round(platform.rect.centerx),
+                    Display.HEIGHT - Physics.GROUND_HEIGHT - y - (Images.level_end["HEIGHT"] + (Physics.GROUND_HEIGHT // 2)))
                 self.level_ends.add(level_end)
 
             x += Scale.scale_x(450 + random.randint(0, 50))
@@ -36,7 +36,7 @@ class Level1(BaseLevel):
 
         # Add ground spikes
         spike = Spike(0,
-            Display.HEIGHT - Physics.GROUND_HEIGHT - Scale.scale_y(Physics.GROUND_HEIGHT) + Scale.scale_y(60),
+            Display.HEIGHT - Physics.GROUND_HEIGHT - Scale.scale_y(Physics.GROUND_HEIGHT) + Scale.scale_y(SpikeCfg.DEFAULT_HEIGHT),
                      5000,
-                     SpikeCfg.DEFAULT_HEIGHT)
+                     Scale.scale_y(SpikeCfg.DEFAULT_HEIGHT))
         self.spikes.add(spike)
