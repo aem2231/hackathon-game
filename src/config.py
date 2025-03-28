@@ -69,6 +69,6 @@ class SpikeCfg:
 
 class Images:
     level_end = {
-        "HEIGHT": Scale.scale_y(46),
-        "WIDTH": Scale.scale_x(95)
+        "HEIGHT": 46,
+        "WIDTH": 95
     }
