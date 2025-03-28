@@ -7,6 +7,14 @@ class Scale:
     def scale(n):
         return (n / Display.BASE_WIDTH) * Display.HEIGHT
 
+    @staticmethod
+    def scale_x(n):
+        return (n / Display.BASE_WIDTH) * Display.WIDTH
+
+    @staticmethod
+    def scale_y(n):
+        return (n / Display.BASE_HEIGHT) * Display.HEIGHT
+
 class Display:
     WIDTH = pygame.display.Info().current_w
     HEIGHT = pygame.display.Info().current_h

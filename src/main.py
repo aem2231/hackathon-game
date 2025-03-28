@@ -25,15 +25,19 @@ class Game:
         self.game_save = self.load_save()
         self.current_level_number = self.game_save["LEVEL"]
 
-        self.show_title_screen()
+        #self.show_title_screen()
 
         if self.current_level_number == 1:
-            self.show_tutorial()
+            #self.show_tutorial()
+            pass
         self.current_level = get_level(self.current_level_number)
         self.player = Sprite(
             self.current_level.platforms,
             self.current_level.spikes,
-            self.current_level.level_ends
+            self.current_level.level_ends,
+            self.current_level.walls,
+            self.current_level.spawn_x,
+            self.current_level.spawn_y
         )
 
     def load_save(self):
@@ -47,21 +51,17 @@ class Game:
                 data = {
                     "LEVEL": 1
                 }
-
                 json.dump(data, save, indent = 4)
-
             return data
 
         try:
             with open(self.save_file, "r") as save:
                 data = json.load(save)
-
             return data
         except:
             data = {
                 "LEVEL": 1
             }
-
             return data
 
 
@@ -81,7 +81,10 @@ class Game:
             self.player = Sprite(
                 self.current_level.platforms,
                 self.current_level.spikes,
-                self.current_level.level_ends
+                self.current_level.level_ends,
+                self.current_level.walls,
+                self.current_level.spawn_x,
+                self.current_level.spawn_y
             )
             return True
         except ValueError:

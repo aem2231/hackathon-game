@@ -29,6 +29,23 @@ class Platform(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
+class Wall(pygame.sprite.Sprite):
+    def __init__(self, x, y, height):
+        """
+        Creates a wall at a specific position (x, y) with a given width.
+
+        Parameters:
+            x (int): The x-coordinate of the platform's position.
+            y (int): The y-coordinate of the platform's position.
+        height (int): The width of the platform.
+        """
+        super().__init__()
+        self.image = pygame.Surface((Physics.GROUND_HEIGHT // 2, height * Display.SCALE))
+        self.image.fill(Colours.PLATFORM)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
 class Spike(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
         """Creates a spike at a specific position.

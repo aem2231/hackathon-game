@@ -1,9 +1,11 @@
 from .level_one import Level1
 from .level_two import Level2
+from .level_three import Level3
 
 LEVELS = {
     1: Level1,
     2: Level2,
+    3: Level3,
 }
 
 def get_level(level_number):

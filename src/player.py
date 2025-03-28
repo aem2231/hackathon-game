@@ -4,15 +4,15 @@ from config import Physics, Colours, Display, Player
 from audio import Audio
 
 class Sprite(pygame.sprite.Sprite):
-    def __init__(self, platforms_group, spikes_group, level_ends_group):
+    def __init__(self, platforms_group, spikes_group, level_ends_group, walls, spawn_x, spawn_y):
         super().__init__()
         self.original_height = Player.HEIGHT
         self.is_crouching = False
         self.image = pygame.Surface((int(Player.WIDTH), int(Player.HEIGHT)))
         self.image.fill(Colours.BLUE)
         self.rect = self.image.get_rect()
-        self.start_x = 200
-        self.start_y = Display.HEIGHT - Physics.GROUND_HEIGHT - 200 - self.rect.height
+        self.start_x = spawn_x
+        self.start_y = spawn_y
         self.rect.x = self.start_x
         self.rect.y = self.start_y
         self.vel_y = 0
@@ -20,6 +20,7 @@ class Sprite(pygame.sprite.Sprite):
         self.platforms = platforms_group
         self.spikes = spikes_group
         self.level_ends = level_ends_group
+        self.walls = walls
         self.reset()
         self.audio = Audio()
 
@@ -88,10 +89,19 @@ class Sprite(pygame.sprite.Sprite):
         else:
             self.on_ground = False
 
+    def check_wall_collisions(self):
+        for wall in self.walls:
+            if self.rect.colliderect(wall.rect):
+                if self.rect.left < wall.rect.right and self.rect.right > wall.rect.right:
+                    self.rect.left = wall.rect.right
+                elif self.rect.right > wall.rect.left and self.rect.left < wall.rect.left:
+                    self.rect.right = wall.rect.left
+
     def update(self):
         self.vel_y += Physics.GRAVITY
         self.rect.y += self.vel_y
         self.check_platform_collisions()
+        self.check_wall_collisions()
         if self.check_spike_collision():
             self.audio.play_death_sound()
             time.sleep(0.3)
@@ -115,6 +125,6 @@ class Sprite(pygame.sprite.Sprite):
         return False
 
     def reset(self):
-        self.rect.x = 200
-        self.rect.y = Display.HEIGHT - Physics.GROUND_HEIGHT - 200 - self.rect.height
+        self.rect.x = self.start_x
+        self.rect.y = self.start_y
         self.vel_y = 0
