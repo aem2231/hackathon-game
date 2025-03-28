@@ -23,7 +23,7 @@ class Platform(pygame.sprite.Sprite):
         width (int): The width of the platform.
         """
         super().__init__()
-        self.image = pygame.Surface((width * Display.SCALE, Physics.GROUND_HEIGHT // 2))
+        self.image = pygame.Surface((width, Physics.GROUND_HEIGHT // 2))
         self.image.fill(Colours.PLATFORM)
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -40,7 +40,7 @@ class Wall(pygame.sprite.Sprite):
         height (int): The width of the platform.
         """
         super().__init__()
-        self.image = pygame.Surface((Physics.GROUND_HEIGHT // 2, height * Display.SCALE))
+        self.image = pygame.Surface((Physics.GROUND_HEIGHT // 2, height))
         self.image.fill(Colours.PLATFORM)
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -82,3 +82,17 @@ class LevelEnd(pygame.sprite.Sprite):
         self.rect = self.scaled_image.get_rect()
         self.rect.x = x
         self.rect.y = y
+
+class WorldBoundaries(pygame.sprite.Sprite):
+    def __init__(self):
+        """Creates invisible boundaries around the screen edges."""
+        super().__init__()
+
+        # Left boundary
+        self.left_wall = Wall(0, 0, Display.HEIGHT)
+
+        # Right boundary
+        self.right_wall = Wall(Display.WIDTH - Physics.GROUND_HEIGHT // 2, 0, Display.HEIGHT)
+
+        # Top boundary
+        self.top_wall = Platform(0, 0, Display.WIDTH)

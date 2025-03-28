@@ -44,25 +44,31 @@ class Physics:
     # Scaled values
     GRAVITY = BASE_GRAVITY * Display.SCALE
     JUMP_STRENGTH = BASE_JUMP_STRENGTH * Display.SCALE
-    GROUND_HEIGHT = BASE_GROUND_HEIGHT * Display.SCALE
+    GROUND_HEIGHT = BASE_GROUND_HEIGHT * Display.SCALE__Y
 
 class Player:
     # Base values
     BASE_NORMAL_SPEED = 5
     BASE_SPRINT_SPEED = 10
-    BASE_WIDTH = 45
-    BASE_HEIGHT = 70
+    BASE_WIDTH = 30
+    BASE_HEIGHT = 55
 
     # Scaled values
-    NORMAL_SPEED = BASE_NORMAL_SPEED * Display.SCALE
-    SPRINT_SPEED = BASE_SPRINT_SPEED * Display.SCALE
-    WIDTH = Scale.scale(BASE_WIDTH)
-    HEIGHT = Scale.scale(BASE_HEIGHT)
+    NORMAL_SPEED = BASE_NORMAL_SPEED * Display.SCALE__X
+    SPRINT_SPEED = BASE_SPRINT_SPEED * Display.SCALE__X
+    WIDTH = Scale.scale_x(BASE_WIDTH)
+    HEIGHT = Scale.scale_y(BASE_HEIGHT)
     STARTING_LIVES = 3
 
 class AudioConfig:
     VOLUME = 0.7
 
 class SpikeCfg:
-    DEFAULT_HEIGHT = 50
-    DEFAULT_WIDTH = 50
+    DEFAULT_HEIGHT = 40
+    DEFAULT_WIDTH = 40
+
+class Images:
+    level_end = {
+        "HEIGHT": 46,
+        "WIDTH": 95
+    }
