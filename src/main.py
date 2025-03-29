@@ -25,6 +25,8 @@ class Game:
         self.game_save = self.load_save()
         self.current_level_number = self.game_save["LEVEL"]
 
+        # title screen and tutorial are disabled for testing
+
         #self.show_title_screen()
 
         if self.current_level_number == 1:

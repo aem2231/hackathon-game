@@ -1,204 +1,175 @@
 # Level Creation Guide
 
 ## Table of Contents
-1. [Preface](#preface)
-2. [Basic Structure](#basic-structure)
-3. [Game Objects](#game-objects)
-4. [Creating a New Level](#creating-a-new-level)
-5. [Example Levels](#example-levels)
-
-## Preface
-
-This guide should teach you everything you need to know to create a level. You should also take some time to familiarise yourself with and understand the codebase as this will make creating levels much easier.
-
-When creating a level, you should checkout into a new branch called `level-i`, where `i` is the number of the level you are making. Once you have tested your level, merge it into dev. Always pull the latest commit from dev before you merge your level.
-
-## Basic Structure
-
-Each level is created as a separate class in the `levels` folder. The basic structure includes:
-- Inherits from `BaseLevel`
-- Ground (automatically added)
-- Platforms
-- Spikes
-- Level end point
-
-### Level Template
-```python
-from .base_level import BaseLevel
-from game_objects import Platform, Spike, LevelEnd
-from config import Physics, Display, Scale, SpikeCfg
-
-class LevelX(BaseLevel):
-    def __init__(self):
-        super().__init__()  # Automatically adds ground
-        self.create_level()
-
-    def create_level(self):
-        # Your level design here
-        pass
-```
+1. [Game Objects](#game-objects)
+2. [Creating a Level](#creating-a-level)
+3. [Level One Example](#level-one-example)
+4. [Best Practices](#best-practices)
+5. [Version Control](#version-control)
 
 ## Game Objects
 
-### Platform
-```python
-platform = Platform(x, y, width)
-self.platforms.add(platform)
-```
-- `x`: X position (use `Scale.scale()`)
-- `y`: Usually `Display.HEIGHT - Physics.GROUND_HEIGHT - Scale.scale(height)`
-- `width`: Platform width (use `Scale.scale()`)
+### Available Objects
+1. **Platform**
+   - Basic horizontal surface the player can stand on
+   - Parameters: x, y, width
+   ```python
+   platform = Platform(x=100, y=200, width=300)
+   ```
 
-### Spike
-```python
-spike = Spike(x, y, width, height)
-self.spikes.add(spike)
-```
-- `x`: X position (use `Scale.scale()`)
-- `y`: Y position (use `Scale.scale()`)
-- `width`: Usually `SpikeCfg.DEFAULT_WIDTH`
-- `height`: Usually `SpikeCfg.DEFAULT_HEIGHT`
+2. **Spike**
+   - Object that kills the player
+   - Parameters: x, y, width, height
+   ```python
+   spike = Spike(x=100, y=200, width=40, height=40)
+   ```
 
-### Level End
-```python
-level_end = LevelEnd(x, y)
-self.level_ends.add(level_end)
-```
-- `x`: X position (use `Scale.scale()`)
-- `y`: Y position (use `Scale.scale()`)
+3. **LevelEnd**
+   - Object that completes the level when touched
+   - Parameters: x, y
+   ```python
+   level_end = LevelEnd(x=100, y=200)
+   ```
 
-## Creating a New Level
+4. **Wall**
+   - Similar to platforms, but vertical (you know what a fucking wall is)
+   - Parameters: x, y, height
+   ```python
+   wall = Wall(x=100, y=200, height=300)
+   ```
 
-1. Create a new file in the `levels` folder (e.g., `level_three.py`):
+## Creating a Level
+
+### Basic Structure
+1. Create a new file in the `levels/` directory
+2. Inherits from `BaseLevel`
+3. Use the template below to implement `__init__` and `create_level`
+4. Add level to `LEVELS` dictionary in `__init__.py`
+
 ```python
 from .base_level import BaseLevel
 from game_objects import Platform, Spike, LevelEnd
-from config import Physics, Display, Scale, SpikeCfg
 
-class Level3(BaseLevel):
+class LevelX(BaseLevel):
     def __init__(self):
         super().__init__()
+        self.spawn_x = Scale.scale_x(200)  # Player spawn position
+        self.spawn_y = Scale.scale_y(200)
         self.create_level()
 
     def create_level(self):
-        # Your level design here
+        # Add game objects here
         pass
 ```
 
-2. Register the level in `levels/__init__.py`:
+`self.spawn_y` and `self.spawn_x` can be chnaged to suit your level
+
+## Level One Example
+
+### Code Breakdown
 ```python
-from .level_three import Level3
+def create_level(self):
+    # Initialize platform dimensions
+    platform_width = Scale.scale_x(300)
+    x = Scale.scale_x(150)
+    y = Scale.scale_y(200)
 
-LEVELS = {
-    1: Level1,
-    2: Level2,
-    3: Level3,
-}
-```
-
-## Example Levels
-
-### Example Level 1: Platform Jumping
-```python
-class Level1(BaseLevel):
-    def __init__(self):
-        super().__init__()
-        self.create_level()
-
-    def create_level(self):
-        x = Scale.scale(150)
-        y = Scale.scale(200)
-
-        for i in range(4):
-            # Create platforms with increasing height
-            platform = Platform(
-                x=x,
-                y=Display.HEIGHT - Physics.GROUND_HEIGHT - y,
-                width=Scale.scale(200)
-            )
-            self.platforms.add(platform)
-
-            # Add spikes on middle platforms
-            if i != 0 and i != 3:
-                spike = Spike(
-                    x=platform.rect.centerx - Scale.scale(15),
-                    y=platform.rect.centery - Scale.scale(30),
-                    width=SpikeCfg.DEFAULT_WIDTH,
-                    height=SpikeCfg.DEFAULT_HEIGHT
-                )
-                self.spikes.add(spike)
-
-            # Add level end on last platform
-            if i == 3:
-                level_end = LevelEnd(
-                    x=x + Scale.scale(120),
-                    y=Display.HEIGHT - Physics.GROUND_HEIGHT - y - Scale.scale(110)
-                )
-                self.level_ends.add(level_end)
-
-            x += Scale.scale(800)
-            y += Scale.scale(100)
-```
-
-### Example Level 2: Vertical Challenge
-```python
-class Level2(BaseLevel):
-    def __init__(self):
-        super().__init__()
-        self.create_level()
-
-    def create_level(self):
-        # Initial climbing section
-        x, y = Scale.scale(200), Scale.scale(200)
-
-        # Vertical platforms
-        for i in range(4):
-            platform = Platform(
-                x=x,
-                y=Display.HEIGHT - Physics.GROUND_HEIGHT - y,
-                width=Scale.scale(200)
-            )
-            self.platforms.add(platform)
-            y += Scale.scale(300)
-
-        # Final challenge platform
-        final_platform = Platform(
-            x=Scale.scale(800),
+    # Create 4 platforms with increasing height
+    for i in range(4):
+        # Create platform
+        platform = Platform(
+            x=x,
             y=Display.HEIGHT - Physics.GROUND_HEIGHT - y,
-            width=Scale.scale(200)
+            width=platform_width
         )
-        self.platforms.add(final_platform)
+        self.platforms.add(platform)
 
-        # Level end
-        level_end = LevelEnd(
-            x=final_platform.rect.x + Scale.scale(70),
-            y=final_platform.rect.y - Scale.scale(100)
-        )
-        self.level_ends.add(level_end)
+        # Add spikes on middle platforms
+        if i != 0 and i != 3:
+            spike = Spike(
+                x=platform.rect.centerx - Scale.scale_x(SpikeCfg.DEFAULT_WIDTH / 2),
+                y=platform.rect.bottom - Physics.GROUND_HEIGHT,
+                width=Scale.scale_x(SpikeCfg.DEFAULT_WIDTH),
+                height=Scale.scale_y(SpikeCfg.DEFAULT_HEIGHT)
+            )
+            self.spikes.add(spike)
+
+        # Add level end on last platform
+        if i == 3:
+            level_end = LevelEnd(
+                x=platform.rect.centerx - Images.level_end["WIDTH"] / 2,
+                y=y - Images.level_end["HEIGHT"] / 2,
+            )
+            self.level_ends.add(level_end)
+
+        # Increment position for next platform
+        x += Scale.scale_x(450 + random.randint(0, 50))
+        y += Scale.scale_y(50 + random.randint(0, 50))
+
+    # Add ground spikes
+    ground_spike = Spike(
+        x=0,
+        y=Display.HEIGHT - Physics.GROUND_HEIGHT - 1,
+        width=Scale.scale_x(5000),
+        height=Scale.scale_y(SpikeCfg.DEFAULT_HEIGHT)
+    )
+    self.spikes.add(ground_spike)
 ```
 
-## Tips for Level Design
+## Best Practices
+
 1. **Scaling**
-   - Always use `Scale.scale()` for x-coordinates and distances
-   - Calculate y positions relative to ground: `Display.HEIGHT - Physics.GROUND_HEIGHT - Scale.scale(height)`
+   - Use Scale.scale_x() and Scale.scale_y() for positioning on x and y coordinates respectively.
+   - Also Use Scale.scale_x() and Scale.scale_y() for widths and heights respectively.
+   - This ensures consistency across different screen resolutions
 
-2. **Platform Placement**
-   - Start with a safe landing platform
-   - Ensure jumps are possible with player physics
-   - Create interesting patterns and challenges
+2. **Object Placement**
+   - Keep platforms within reachable jumping distance (the level needs to be doable)
+   - Maintain difficulty progression
+   - Ensure level is completable
 
-3. **Hazards**
-   - Place spikes strategically
-   - Create challenging but fair obstacles
-   - Test all jump sequences
+3. **Testing Checklist**
+   - Player can reach all platforms
+   - Level end is reachable
+   - Spikes work correctly
+   - No visual glitches
+   - Consistent difficulty
 
-4. **Level End**
-   - Place on final platform
-   - Make it clearly reachable
-   - Test completion sequence
+## Version Control
 
-5. **Testing**
-   - Verify all jumps are possible
-   - Check collision detection
-   - Ensure level can be completed
-   - Test with different screen resolutions
+### Branch Naming Convention
+- Create a new branch for each level: `level-x` where x is the level number
+- Example: `level-1`, `level-2`, etc.
+
+### Development Flow
+1. Create new level branch
+```bash
+git checkout -b level-x
+```
+
+2. Develop level
+```bash
+# Create level file
+# Add to LEVELS dictionary
+# Test thoroughly
+```
+
+3. Testing
+- Complete playthrough testing
+- Performance testing
+- Edge case testing
+
+4. Code Review
+- Submit pull request to dev branch
+- Get review from team members
+- Address feedback
+
+5. Merge Process
+```bash
+git checkout dev
+git pull origin dev
+git merge level-x
+git push origin dev
+```
+
+Always test the level thoroughly before merging to dev!

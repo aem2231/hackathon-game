@@ -34,8 +34,8 @@ class Level1(BaseLevel):
 
             if i == 3:
                 level_end = LevelEnd(
-                    x=platform.rect.centerx - Images.level_end["HEIGHT"] / 2,
-                    y=y
+                    x=platform.rect.centerx - Images.level_end["WIDTH"] / 2,
+                    y=y - Images.level_end["HEIGHT"] / 2,
                 )
                 self.level_ends.add(level_end)
 
