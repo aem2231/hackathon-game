@@ -7,7 +7,7 @@ class Level1(BaseLevel):
     def __init__(self):
         super().__init__()
         self.spawn_x = Scale.scale_x(200)
-        self.spawn_y = Scale.scale_y(200)
+        self.spawn_y = Display.HEIGHT - Physics.GROUND_HEIGHT - Scale.scale_y(250)
         self.create_level()
 
     def create_level(self):
