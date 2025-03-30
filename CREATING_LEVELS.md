@@ -38,6 +38,12 @@
    wall = Wall(x=100, y=200, height=300)
    ```
 
+5. **Block**
+    - Also similar to platform, but allows for a height arg as well as width
+    - Parameters: x, y, width, height
+    ```python
+    block = block(x=100, y=200, height=300, width=300)
+
 ## Creating a Level
 
 ### Basic Structure
