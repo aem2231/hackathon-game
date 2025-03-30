@@ -11,7 +11,10 @@ from audio import Audio
 class Game:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+        if Display.FULLSCREEN:
+            self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        else:
+            self.screen = pygame.display.set_mode((Display.WIDTH, Display.HEIGHT))
         pygame.display.set_caption("White Monster")
         self.clock = pygame.time.Clock()
         self.running = True

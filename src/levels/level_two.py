@@ -91,15 +91,9 @@ class Level2(BaseLevel):
                 )
             self.platforms.add(platform)
 
-            width = 660
-
-            x = platform.rect.left
-            if i == 1:
-                x = platform.rect.left
-
             spike = Spike(
-                x=x,
-                y=platform.rect.top - 10,
+                x=platform.rect.left,
+                y=platform.rect.top - Scale.scale_y(10),
                 width=Scale.scale_x(width),
                 height=Scale.scale_y(10)
             )
