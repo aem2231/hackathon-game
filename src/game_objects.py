@@ -83,6 +83,25 @@ class LevelEnd(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
+class Block(pygame.sprite.Sprite):
+    def __init__(self, x, y, width, height):
+        """
+        Creates a platform at a specific position (x, y) with a given width and height.
+
+        Parameters:
+            x (int): The x-coordinate of the block's position.
+            y (int): The y-coordinate of the block's position.
+            width (int): The width of the platform.
+            height (int): The height of the block
+        """
+        super().__init__()
+        self.image = pygame.Surface((width, height))
+        self.image.fill(Colours.PLATFORM)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+
 class WorldBoundaries(pygame.sprite.Sprite):
     def __init__(self):
         """Creates invisible boundaries around the screen edges."""

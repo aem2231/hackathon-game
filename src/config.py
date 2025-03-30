@@ -38,7 +38,7 @@ class Colours:
 
 class Physics:
     BASE_GRAVITY = 0.9
-    BASE_JUMP_STRENGTH = 20
+    BASE_JUMP_STRENGTH = 15
     BASE_GROUND_HEIGHT = 50
 
     # Scaled values

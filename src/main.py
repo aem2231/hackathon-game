@@ -38,6 +38,7 @@ class Game:
             self.current_level.spikes,
             self.current_level.level_ends,
             self.current_level.walls,
+            self.current_level.blocks,
             self.current_level.spawn_x,
             self.current_level.spawn_y
         )
@@ -85,6 +86,7 @@ class Game:
                 self.current_level.spikes,
                 self.current_level.level_ends,
                 self.current_level.walls,
+                self.current_level.blocks,
                 self.current_level.spawn_x,
                 self.current_level.spawn_y
             )

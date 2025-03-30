@@ -4,7 +4,7 @@ from config import Physics, Colours, Display, Player
 from audio import Audio
 
 class Sprite(pygame.sprite.Sprite):
-    def __init__(self, platforms_group, spikes_group, level_ends_group, walls, spawn_x, spawn_y):
+    def __init__(self, platforms_group, spikes_group, level_ends_group, walls, blocks, spawn_x, spawn_y):
         super().__init__()
         self.original_height = Player.HEIGHT
         self.is_crouching = False
@@ -21,6 +21,7 @@ class Sprite(pygame.sprite.Sprite):
         self.spikes = spikes_group
         self.level_ends = level_ends_group
         self.walls = walls
+        self.blocks = blocks
         self.reset()
         self.audio = Audio()
 
@@ -89,6 +90,23 @@ class Sprite(pygame.sprite.Sprite):
         else:
             self.on_ground = False
 
+    def check_block_collisions(self):
+        for block in self.blocks:
+            if self.rect.colliderect(block.rect):
+                if self.vel_y > 0 and self.rect.bottom - self.vel_y <= block.rect.top + 10:
+                    self.rect.bottom = block.rect.top
+                    self.vel_y = 0
+                    self.on_ground = True
+                    break
+                elif self.vel_y < 0 and self.rect.top - self.vel_y >= block.rect.bottom - 10:
+                    self.rect.top = block.rect.bottom
+                    self.vel_y = 0
+                else:
+                    if self.rect.right > block.rect.left and self.rect.centerx < block.rect.centerx:
+                        self.rect.right = block.rect.left
+                    elif self.rect.left < block.rect.right and self.rect.centerx > block.rect.centerx:
+                        self.rect.left = block.rect.right
+
     def check_wall_collisions(self):
         for wall in self.walls:
             if self.rect.colliderect(wall.rect):
@@ -96,21 +114,6 @@ class Sprite(pygame.sprite.Sprite):
                     self.rect.left = wall.rect.right
                 elif self.rect.right > wall.rect.left and self.rect.left < wall.rect.left:
                     self.rect.right = wall.rect.left
-
-    def update(self):
-        self.vel_y += Physics.GRAVITY
-        self.rect.y += self.vel_y
-        self.check_platform_collisions()
-        self.check_wall_collisions()
-        if self.check_spike_collision():
-            self.audio.play_death_sound()
-            time.sleep(0.3)
-            self.reset()
-
-        if self.rect.y >= Display.HEIGHT - Physics.GROUND_HEIGHT - self.rect.height:
-            self.rect.y = Display.HEIGHT - Physics.GROUND_HEIGHT - self.rect.height
-            self.vel_y = 0
-            self.on_ground = True
 
     def check_spike_collision(self):
         for spike in self.spikes:
@@ -128,3 +131,19 @@ class Sprite(pygame.sprite.Sprite):
         self.rect.x = self.start_x
         self.rect.y = self.start_y
         self.vel_y = 0
+
+    def update(self):
+        self.vel_y += Physics.GRAVITY
+        self.rect.y += self.vel_y
+        self.check_platform_collisions()
+        self.check_wall_collisions()
+        self.check_block_collisions()
+        if self.check_spike_collision():
+            self.audio.play_death_sound()
+            time.sleep(0.3)
+            self.reset()
+
+        if self.rect.y >= Display.HEIGHT - Physics.GROUND_HEIGHT - self.rect.height:
+            self.rect.y = Display.HEIGHT - Physics.GROUND_HEIGHT - self.rect.height
+            self.vel_y = 0
+            self.on_ground = True

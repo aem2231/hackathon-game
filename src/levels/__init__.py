@@ -1,7 +1,9 @@
 from .level_one import Level1
+from .level_two import Level2
 
 LEVELS = {
-    1: Level1
+    1: Level1,
+    2: Level2
     # Add more levels here as needed
 }
 

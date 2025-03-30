@@ -9,6 +9,7 @@ class BaseLevel:
         self.spikes = pygame.sprite.Group()
         self.level_ends = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
+        self.blocks = pygame.sprite.Group()
 
         # Create world boundaries
         boundaries = WorldBoundaries()
@@ -16,8 +17,7 @@ class BaseLevel:
         self.walls.add(boundaries.right_wall)
 
         # Default spawn coordinates
-        self.spawn_x = Scale.scale_x(200)
-        self.spawn_y = Display.HEIGHT - Physics.GROUND_HEIGHT - Scale.scale_y(800)
+
 
         ground = Ground(0, Display.WIDTH * 2)
         self.platforms.add(ground)
@@ -27,9 +27,11 @@ class BaseLevel:
         self.spikes.draw(screen)
         self.level_ends.draw(screen)
         self.walls.draw(screen)
+        self.blocks.draw(screen)
 
     def update(self):
         self.platforms.update()
         self.spikes.update()
         self.level_ends.update()
         self.walls.update()
+        self.blocks.update()
