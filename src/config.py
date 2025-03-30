@@ -81,7 +81,7 @@ class Display:
         "Android": (1440, 3040),  # Samsung S10
 
         # Smaller screens
-        "Small": (640, 480),      # Unplayable
+        "Small": (300, 300),      # Unplayable (ish)
         "Minimum": (800, 600),    # Minimum playable
 
         # Other common
@@ -95,8 +95,7 @@ class Display:
     FULLSCREEN = True
 
     # Default resolution (can be changed)
-    CURRENT_RESOLUTION = "Minimum"
-
+    CURRENT_RESOLUTION = "HD"
     # Get current resolution values
     WIDTH = RESOLUTIONS[CURRENT_RESOLUTION][0] if not FULLSCREEN else pygame.display.Info().current_w
     HEIGHT = RESOLUTIONS[CURRENT_RESOLUTION][1] if not FULLSCREEN else pygame.display.Info().current_h
@@ -120,13 +119,13 @@ class Colours:
     PLATFORM = (100, 100, 100)
 
 class Physics:
-    BASE_GRAVITY = 0.9
-    BASE_JUMP_STRENGTH = 14
+    BASE_GRAVITY = 1
+    BASE_JUMP_STRENGTH = 16
     BASE_GROUND_HEIGHT = 50
 
     # Scaled values
     GRAVITY = BASE_GRAVITY * Display.SCALE
-    JUMP_STRENGTH = BASE_JUMP_STRENGTH * Display.SCALE__Y
+    JUMP_STRENGTH = BASE_JUMP_STRENGTH * Display.SCALE
     GROUND_HEIGHT = BASE_GROUND_HEIGHT * Display.SCALE__Y
 
 class Player:

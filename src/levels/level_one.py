@@ -34,13 +34,13 @@ class Level1(BaseLevel):
 
             if i == 3:
                 level_end = LevelEnd(
-                    x=platform.rect.centerx - Images.level_end["WIDTH"] / 2,
+                    x=platform.rect.centerx,
                     y=platform.rect.top - Scale.scale_y(100)
                 )
                 self.level_ends.add(level_end)
 
-            x += Scale.scale_x(450 + random.randint(0, 50))
-            y += Scale.scale_y(50 + random.randint(0, 50))
+            x += Scale.scale_x(450 + random.randint(0, 30))
+            y += Scale.scale_y(50 + random.randint(0, 30))
 
         ground_spike = Spike(
             x=0,

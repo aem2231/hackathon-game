@@ -28,7 +28,7 @@ class Level2(BaseLevel):
         x = Physics.GROUND_HEIGHT // 2
         y = int(round(Display.HEIGHT - Physics.GROUND_HEIGHT - (Physics.GROUND_HEIGHT // 2)))
 
-        width = 50
+        width = 70
 
         for i in range(4):
             platform = Platform(
@@ -86,7 +86,7 @@ class Level2(BaseLevel):
                 x=wall_left.rect.right
             platform = Platform(
                 x = x,
-                y = platform.rect.centery + Scale.scale_y(200),
+                y = platform.rect.centery + Scale.scale_y(220),
                 width = Scale.scale_x(width)
                 )
             self.platforms.add(platform)
