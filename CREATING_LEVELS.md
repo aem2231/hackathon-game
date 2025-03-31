@@ -68,7 +68,7 @@ class LevelX(BaseLevel):
         pass
 ```
 
-`self.spawn_y` and `self.spawn_x` can be chnaged to suit your level
+`self.spawn_y` and `self.spawn_x` can be changed to suit your level
 
 ## Level One Example
 
