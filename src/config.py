@@ -92,7 +92,7 @@ class Display:
     }
 
     # Set this to False for windowed mode
-    FULLSCREEN = True
+    FULLSCREEN = False
 
     # Default resolution (can be changed)
     CURRENT_RESOLUTION = "HD"
