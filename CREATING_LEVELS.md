@@ -166,7 +166,6 @@ git checkout -b level-x
 - Edge case testing
 
 4. Code Review
-- Submit pull request to dev branch
 - Get review from team members
 - Address feedback
 
