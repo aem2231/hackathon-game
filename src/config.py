@@ -91,11 +91,7 @@ class Display:
         "6K": (6016, 3384)        # Pro Display XDR
     }
 
-<<<<<<< HEAD
-    # Set this to False for windowed mode #
-=======
     # Set this to False for windowed mode
->>>>>>> ab51ae48f3aab2795fc1be662625a599fb8ea028
     FULLSCREEN = False
 
     # Default resolution (can be changed)
