@@ -5,8 +5,6 @@ from .level_three import Level3
 LEVELS = {
     1: Level1,
     2: Level2,
-    3: Level3
-    # Add more levels here as needed
 }
 
 def get_level(level_number):
