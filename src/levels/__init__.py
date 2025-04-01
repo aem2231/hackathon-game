@@ -1,11 +1,9 @@
 from .level_one import Level1
 from .level_two import Level2
-from .level_four import Level4
 
 LEVELS = {
     1: Level1,
     2: Level2,
-    3: Level4,
     # Add more levels here as needed
 }
 
