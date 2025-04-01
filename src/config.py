@@ -95,7 +95,7 @@ class Display:
     FULLSCREEN = False
 
     # Default resolution (can be changed)
-    CURRENT_RESOLUTION = "HD"
+    CURRENT_RESOLUTION = "WXGA"
     # Get current resolution values
     WIDTH = RESOLUTIONS[CURRENT_RESOLUTION][0] if not FULLSCREEN else pygame.display.Info().current_w
     HEIGHT = RESOLUTIONS[CURRENT_RESOLUTION][1] if not FULLSCREEN else pygame.display.Info().current_h
