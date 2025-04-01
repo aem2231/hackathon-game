@@ -47,15 +47,15 @@ class Level3(BaseLevel):
         # Platforms of the wall #
 
         # wall one #
-        wall = Wall(x=300, y=230, height=300)
+        wall = Wall(x= Scale.scale_x(300), y= Scale.scale_y(230), height= Scale.scale_y(300))
         self.walls.add(wall)
-        wall = Wall(x=300, y=490, height=300)
+        wall = Wall(x= Scale.scale_x(300), y= Scale.scale_y(490), height= Scale.scale_y(300))
         self.walls.add(wall)
 
         # wall two #
-        wall = Wall(x=500, y=230, height=200)
+        wall = Wall(x= Scale.scale_x(500), y= Scale.scale_y(230), height= Scale.scale_y(200))
         self.walls.add(wall)
-        wall = Wall(x=500, y=760, height=500)
+        wall = Wall(x= Scale.scale_x(500), y= Scale.scale_y(760), height= Scale.scale_y(500))
         self.walls.add(wall)
         
         platform_width = Scale.scale_x(100)
@@ -69,9 +69,9 @@ class Level3(BaseLevel):
         self.platforms.add(platform)
 
         # wall three #
-        wall = Wall(x=750, y=230, height=200)
+        wall = Wall(x = Scale.scale_x(750), y = Scale.scale_y(230), height= Scale.scale_y(200))
         self.walls.add(wall)
-        wall = Wall(x=750, y=660, height=500)
+        wall = Wall(x = Scale.scale_x(750), y = Scale.scale_y(660), height= Scale.scale_y(500))
         self.walls.add(wall)
         
         platform_width = Scale.scale_x(100)
@@ -85,9 +85,9 @@ class Level3(BaseLevel):
         self.platforms.add(platform)
 
         # wall four #
-        wall = Wall(x=950, y=230, height=200)
+        wall = Wall(x = Scale.scale_x(950), y = Scale.scale_y(230), height= Scale.scale_y(200))
         self.walls.add(wall)
-        wall = Wall(x=950, y=660, height=500)
+        wall = Wall(x = Scale.scale_x(950), y = Scale.scale_y(660), height= Scale.scale_y(500))
         self.walls.add(wall)
         
         platform_width = Scale.scale_x(100)
@@ -103,10 +103,10 @@ class Level3(BaseLevel):
         # wall five #
         
         # Top Wall #
-        wall = Wall(x=1150, y=230, height=440)
+        wall = Wall(x = Scale.scale_x(1150), y = Scale.scale_y(230), height= Scale.scale_y(440))
         self.walls.add(wall)
         # Bottom wall #
-        wall = Wall(x=1150, y=860, height=300)
+        wall = Wall(x = Scale.scale_x(1150), y= Scale.scale_y(860), height= Scale.scale_y(300))
         self.walls.add(wall)
         
         # Bottom Platform #
@@ -134,7 +134,7 @@ class Level3(BaseLevel):
         # Wall six #
         
         # Big Wall #
-        wall = Wall(x=1350, y=330, height=940)
+        wall = Wall(x = Scale.scale_x(1350), y = Scale.scale_y(330), height= Scale.scale_y(940))
         self.walls.add(wall)
 
         # Platforms #
@@ -145,7 +145,7 @@ class Level3(BaseLevel):
         y = Scale.scale_y(750)
         for i in range(3):
             platform = Platform(
-                x = 1310,
+                x = x,
                 y = y,
                 width = platform_width
             )
@@ -167,7 +167,7 @@ class Level3(BaseLevel):
             y -= Scale.scale_y(660) // 4
 
         # Wall 7 #
-        wall = Wall(x=1500, y=230, height=940)
+        wall = Wall(x = Scale.scale_x(1500), y = Scale.scale_y(230), height= Scale.scale_y(940))
         self.walls.add(wall)
 
         # Red wall >:) #
