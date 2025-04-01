@@ -179,7 +179,7 @@ class Level3(BaseLevel):
         )
         self.spikes.add(ground_spike)
 
-        # Ending :) #
+        # Ending :) # # 
         level_end = LevelEnd(
             x=Scale.scale_x(1400),
             y=Scale.scale_y(900),
