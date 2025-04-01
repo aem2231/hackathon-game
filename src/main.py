@@ -135,7 +135,7 @@ class Game:
             "Use arrow keys / wasd to move!",
             "Use shift to sprint!",
             "Use space / up arrow to jump!",
-            "Use ctrl to crouch!"
+            "Use ctrl / down arrow to crouch!"
         ]
 
         objectives = [
@@ -219,7 +219,7 @@ class Game:
             self.player.move(Player.NORMAL_SPEED)
         if keys[pygame.K_SPACE] or keys[K_UP]:
             self.player.jump()
-        if keys[pygame.K_RCTRL] or keys[pygame.K_LCTRL]:
+        if keys[pygame.K_RCTRL] or keys[pygame.K_LCTRL] or keys[pygame.K_DOWN]:
             self.player.crouch()
         else:
             self.player.uncrouch()

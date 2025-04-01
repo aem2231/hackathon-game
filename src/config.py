@@ -92,7 +92,7 @@ class Display:
     }
 
     # Set this to False for windowed mode
-    FULLSCREEN = False
+    FULLSCREEN = True
 
     # Default resolution (can be changed)
     CURRENT_RESOLUTION = "WXGA+"

@@ -1,3 +1,4 @@
+
 from .base_level import BaseLevel
 from game_objects import Platform, Spike, LevelEnd, Wall
 from config import Physics, Display, Scale, SpikeCfg, Images
@@ -57,7 +58,7 @@ class Level3(BaseLevel):
         self.walls.add(wall)
         wall = Wall(x= Scale.scale_x(500), y= Scale.scale_y(760), height= Scale.scale_y(500))
         self.walls.add(wall)
-        
+
         platform_width = Scale.scale_x(100)
         x = Scale.scale_x(462)
         y = Scale.scale_y(280)
@@ -73,7 +74,7 @@ class Level3(BaseLevel):
         self.walls.add(wall)
         wall = Wall(x = Scale.scale_x(750), y = Scale.scale_y(660), height= Scale.scale_y(500))
         self.walls.add(wall)
-        
+
         platform_width = Scale.scale_x(100)
         x = Scale.scale_x(710)
         y = Scale.scale_y(380)
@@ -89,7 +90,7 @@ class Level3(BaseLevel):
         self.walls.add(wall)
         wall = Wall(x = Scale.scale_x(950), y = Scale.scale_y(660), height= Scale.scale_y(500))
         self.walls.add(wall)
-        
+
         platform_width = Scale.scale_x(100)
         x = Scale.scale_x(910)
         y = Scale.scale_y(380)
@@ -101,14 +102,14 @@ class Level3(BaseLevel):
         self.platforms.add(platform)
 
         # wall five #
-        
+
         # Top Wall #
         wall = Wall(x = Scale.scale_x(1150), y = Scale.scale_y(230), height= Scale.scale_y(440))
         self.walls.add(wall)
         # Bottom wall #
         wall = Wall(x = Scale.scale_x(1150), y= Scale.scale_y(860), height= Scale.scale_y(300))
         self.walls.add(wall)
-        
+
         # Bottom Platform #
         platform_width = Scale.scale_x(100)
         x = Scale.scale_x(1110)
@@ -132,13 +133,13 @@ class Level3(BaseLevel):
         self.platforms.add(platform)
 
         # Wall six #
-        
+
         # Big Wall #
         wall = Wall(x = Scale.scale_x(1350), y = Scale.scale_y(330), height= Scale.scale_y(940))
         self.walls.add(wall)
 
         # Platforms #
-        
+
         # Right Platform #
         platform_width = Scale.scale_x(100)
         x = Scale.scale_x(1310)
@@ -179,10 +180,9 @@ class Level3(BaseLevel):
         )
         self.spikes.add(ground_spike)
 
-        # Ending :) # # 
+        # Ending :) # #
         level_end = LevelEnd(
             x=Scale.scale_x(1400),
             y=Scale.scale_y(900),
             )
         self.level_ends.add(level_end)
-
