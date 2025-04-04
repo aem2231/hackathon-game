@@ -28,12 +28,10 @@ class Game:
         self.game_save = self.load_save()
         self.current_level_number = self.game_save["LEVEL"]
 
-        # title screen and tutorial are disabled for testing
-
-        #self.show_title_screen()
+        self.show_title_screen()
 
         if self.current_level_number == 1:
-            #self.show_tutorial()
+            self.show_tutorial()
             pass
         self.current_level = get_level(self.current_level_number)
         self.player = Sprite(
